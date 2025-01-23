@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>London Movie Locations Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 100vh;
+    }
+    .popup-content img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+      margin-bottom: 5px;
+    }
+    .popup-content iframe {
+      width: 100%;
+      height: 200px;
+      border-radius: 5px;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Initialize the map
+    const map = L.map('map').setView([51.509865, -0.118092], 12);
+
+    // Add the OpenStreetMap tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Movie locations data
+    const locations = [
+      {
+        coords: [51.513614, -0.203743],
+        title: "Alice’s Antique Shop - Paddington",
+        description: "This shop is where Paddington first finds his famous blue coat. The scene captures the warm and quirky charm of the shop.",
+        video: "https://www.youtube.com/embed/0SJKk2j4SAU"
+      },
+      {
+        coords: [51.501364, -0.14189],
+        title: "Buckingham Palace - Paddington",
+        description: "In this scene, Paddington accidentally creates chaos outside Buckingham Palace while chasing a thief.",
+        video: "https://www.youtube.com/embed/QKWGB-0yUso"
+      },
+      {
+        coords: [51.514413, -0.092954],
+        title: "Goldsmiths' Hall - Bridgerton",
+        description: "Goldsmiths' Hall was the setting for a lavish ball, full of Bridgerton's signature drama and elegance.",
+        video: "https://www.youtube.com/embed/yQZRf0W4WJQ"
+      },
+      {
+        coords: [51.523766, -0.158555],
+        title: "221B Baker St - Sherlock Holmes",
+        description: "This iconic address serves as the base where Sherlock Holmes and Dr. Watson strategize to solve their latest mystery.",
+        video: "https://www.youtube.com/embed/wgC79jANdFM"
+      },
+      {
+        coords: [51.489014, -0.19096],
+        title: "Brompton Cemetery - Johnny English",
+        description: "A tense scene unfolds in this cemetery as Johnny English chases a suspect through the graveyard.",
+        video: "https://www.youtube.com/embed/93TnnyxGBqI"
+      },
+      {
+        coords: [51.503324, -0.119543],
+        title: "London Eye - James Bond",
+        description: "The London Eye appears in an action-packed sequence where James Bond chases a villain through the city.",
+        video: "https://www.youtube.com/embed/yqfy5jVp6jQ"
+      },
+      {
+        coords: [51.513356, -0.104123],
+        title: "Ludgate Circus - Dilwale Dulhania Le Jayenge",
+        description: "In one of Bollywood's most famous scenes, Khan is framed by Fleet Street while Ray dances as the bus passes through Ludgate Circus. This iconic scene is so celebrated that a statue was erected to honor the moment.",
+        video: "https://www.youtube.com/embed/hw_HpTI_Wkw"
+      }
+    ];
+
+    // Add markers and popups
+    locations.forEach(location => {
+      let popupContent = `
+        <div class="popup-content">
+          <h3>${location.title}</h3>
+          <p>${location.description}</p>
+      `;
+
+      if (location.video) {
+        popupContent += `<iframe src="${location.video}" frameborder="0" allowfullscreen></iframe>`;
+      }
+
+      popupContent += `</div>`;
+
+      L.marker(location.coords)
+        .addTo(map)
+        .bindPopup(popupContent);
+    });
+  </script>
+</body>
+</html>
